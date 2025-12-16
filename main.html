@@ -21,13 +21,13 @@
   <select id="voiceSelect"></select>
 
   <label for="rate">Rate: <span id="rateValue">1</span></label>
-  <input type="range" id="rate" min="0.5" max="2" value="1" step="0.1">
+  <input type="range" id="rate" name="rate" min="0.5" max="2" value="1" step="0.1">
 
   <label for="pitch">Pitch: <span id="pitchValue">1</span></label>
-  <input type="range" id="pitch" min="0" max="2" value="1" step="0.1">
+  <input type="range" id="pitch" name="pitch" min="0" max="2" value="1" step="0.1">
 
-  <button id="speakBtn">Speak</button>
-  <button id="stopBtn">Stop</button>
+  <button id="speak">Speak</button>
+  <button id="stop">Stop</button>
 
   <p id="message" style="color: red;"></p>
 
@@ -36,8 +36,8 @@
     const voiceSelect = document.getElementById('voiceSelect');
     const rateSlider = document.getElementById('rate');
     const pitchSlider = document.getElementById('pitch');
-    const speakBtn = document.getElementById('speakBtn');
-    const stopBtn = document.getElementById('stopBtn');
+    const speakBtn = document.getElementById('speak');
+    const stopBtn = document.getElementById('stop');
     const rateValue = document.getElementById('rateValue');
     const pitchValue = document.getElementById('pitchValue');
     const message = document.getElementById('message');
@@ -62,11 +62,9 @@
       });
     }
 
-    // Load voices when available
     speechSynthesis.onvoiceschanged = populateVoices;
     populateVoices();
 
-    // Update utterance settings
     function updateUtterance() {
       utterance.text = textArea.value.trim();
       const selectedVoiceIndex = voiceSelect.value;
@@ -83,7 +81,7 @@
         return;
       }
       message.textContent = '';
-      speechSynthesis.cancel(); // Stop any ongoing speech
+      speechSynthesis.cancel();
       updateUtterance();
       speechSynthesis.speak(utterance);
     });
@@ -120,4 +118,5 @@
   </script>
 </body>
 </html>
+
 
